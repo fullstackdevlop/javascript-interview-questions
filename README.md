@@ -1,4 +1,4 @@
-# JavaScript Interview Question & Answer
+# JavaScript
 
 - Basic
 - Variables & Data Types
@@ -641,7 +641,7 @@ Both `while` and `do-while` loops are used for repeating a block of code as long
 
 - **Syntax**: `while` loop condition added at the beginning but `do...while` condition added at the end.
 
-- **Use Caes**: `while` loop
+- **Use Caes**: `while` loop used when you might not need to execute the loop if the initial condition is false but `do-while` loop used when you need to execute the loop at least once.
 
 ```sh
 # While Loop
@@ -663,13 +663,290 @@ do {
 
 ### What is the difference between break and continue statement?
 
+Both `break` and `continue` statements are used to control the flow of loops.
+
+- **Break**: The `break` statement is used to exit from a loop or switch statement immediately.
+
+- **Continue**: The `continue` statement is used to skip the current iteration of the loop and move to the next iteration immediately.
+
+```sh
+# Break
+for (let i = 0; i < 10; i++) {
+    if (i === 5) {
+        break; // Exit the loop when i is 5
+    }
+    console.log(i);
+}
+// Output: 0, 1, 2, 3, 4
+```
+
+```sh
+# Continue
+for (let i = 0; i < 10; i++) {
+    if (i % 2 === 0) {
+        continue; // Skip the current iteration if i is even
+    }
+    console.log(i);
+}
+// Output: 1, 3, 5, 7, 9
+```
+
 ### What is the difference between for and for...of loop in JavaScript?
+
+Both the `for` and `for...of` loops are used to iterate over elements in a collection, but they are used in different contexts.
+
+- **Purpose**: The traditional `for` loop is a general-purpose loop, typically used with a counter but `for...of` loop is specifically designed to iterate over iterable objects, such as arrays, strings, maps, sets, and other collections.
+
+- **Syntax**: The `for` loop uses a more complex syntax with initialization, condition, and increment but `for...of` loop has a simpler syntax focused on the iterable and its elements.
+
+- **Use Case**: The `for` loop useful when you need control over the loop counter & number of iterations is known beforehand but `for...of` loop is simpler & more readable for iterating over the values of arrays or objects. It does not give direct access to the index of the current element (for arrays), but focuses on the value.
+
+```sh
+const array = ['a', 'b', 'c', 'd'];
+
+// for loop
+for (let i = 0; i < array.length; i++) {
+    console.log(`Index: ${i}, Value: ${array[i]}`);
+}
+```
+
+```sh
+const array = ['a', 'b', 'c', 'd'];
+
+// for...of loop
+for (const value of array) {
+    console.log(value);
+}
+```
 
 ### What is the difference between for...of and for...in loops in JavaScript?
 
+Both `for...of` and `for...in` loops are used to iterate over elements in a collection, but they serve different purposes and work with different types of data.
+
+- **Purpose**: The `for...of` loop is used for iterating over the values of iterable objects such as arrays, strings, maps, sets, and other objects but `for...in` loop is used for iterating over the enumerable properties of an object. It is designed to loop through the keys of an object including arrays, which are objects with integer keys.
+
+- **Use Case**:The `for...of` is ideal for looping over the values of arrays or any iterable objects but `for...in` is ideal for looping over the properties of objects.
+
+- **What they return**: The `for...of` returns the values of the iterable but `for...in` returns the keys or property name of the object.
+
+```sh
+# Syntax
+for (const value of iterable) {
+    // code to be executed
+}
+
+# Example
+const array = ['a', 'b', 'c', 'd'];
+for (const value of array) {
+    console.log(value);
+}
+// Output: 'a', 'b', 'c', 'd'
+```
+
+```sh
+# Syntax
+for (const key in object) {
+    // code to be executed
+}
+
+# Example
+const object = { a: 1, b: 2, c: 3 };
+for (const key in object) {
+    console.log(`Key: ${key}, Value: ${object[key]}`);
+}
+// Output:
+// Key: a, Value: 1
+// Key: b, Value: 2
+// Key: c, Value: 3
+
+```
+
+### What is forEach method in JavaScript?
+
+The `forEach` method is a built-in array method used for iterating over arrays in a concise and readable manner.
+
+- **Purpose**: This method is often used for its simplicity when you need to perform an action for each element in an array, especially when you don't need to break the loop or return a value.
+
+- **Syntax**: `forEach` accept a callback function with 3 parameters like element, index, array.
+
+  - `element`: The current element being processed in the array.
+  - `index`: The index of current element & its optional.
+  - `array`: The array forEach was called upon & its optional.
+
+- **Return value**: `forEach` always returns undefined.
+
+- **Behavior**: Cannot be stopped or broken unlike a `for` loop and does not mutate the original array unless the callback function does so.
+
+```sh
+array.forEach(callback(element, index, array) {
+    // code to be executed
+});
+```
+
+```sh
+const array = ['a', 'b', 'c', 'd'];
+array.forEach((value, index) => {
+    console.log(`Index: ${index}, Value: ${value}`);
+});
+// Output:
+// Index: 0, Value: a
+// Index: 1, Value: b
+// Index: 2, Value: c
+// Index: 3, Value: d
+```
+
+### What is difference between forEach and for loop in JavaScript?
+
+Choosing between `forEach` and a `for` loop often depends on the specific requirements of your code and your preference. There are sevreal differences in forEach & for loops.
+
+- **Syntax**: The `forEach` is a method called on arrays with a callback function but `for` is a statement with a more complex syntax involving initialization, condition, and increment/decrement.
+
+- **Flexibility**: The `forEach` is specifically for iterating over array elements but `for` loops are more flexible and can be used for complex iteration logic.
+
+- **Control Flow**: The `forEach` doesn't allow breaking or skipping iterations but `for` loops allow you to control the iteration with `break` and `continue`.
+
+- **Return Value**: The `forEach` always returns undefined but `for` loops don't have a return value, but allow you to `return` from the containing function.
+
+- **Performance**: The `forEach` may be slower due to the overhead of the callback function but `for` loops is generally more efficient & slightly faster, especially for very large arrays.
+
+- **Readability**: The `forEach` can be more readable for simple iterations over arrays but `for` loops might be clearer when more complex logic is involved.
+
+```sh
+let arr = [1, 2, 3, 4, 5];
+
+// forEach
+arr.forEach(function(item) {
+    console.log(item);
+});
+
+// for loop
+for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+}
+```
+
 ### What is forEach method? Compare it with for...of and for...in loop?
 
+The `forEach` method is a built-in array method used for iterating over arrays in a concise and readable manner.
+
+The `forEach` method, `for...of`, and `for...in` loops allow you to iterate over collections, but they have different uses and characteristics.
+
+- `forEach` is a built-in array method that specific work with array, `for...of` iterating over iterable objects (like arrays, strings, maps, etc.), and `for...in` iterates over the enumerable properties of an object.
+
+- `forEach` provides both value and index easily, `for...of` provides just the value, and `for...in` provides just the key or index with array.
+
+- `forEach` doesn't return a value, always returns `undefined` and cannot used with `break` & `continue` but `for...of` and `for...in` used with `break`, `continue`, and `return` statements.
+
+- `for...in` can include inherited properties, but `forEach` and `for...of` don't.
+
+- `forEach` and `for...of` use with arrays, but `for...in` use with objects. `for...in` not recommended for arrays because it also includes non-index properties like prototype methods or additional properties.
+
+```sh
+let arr = ['a', 'b', 'c'];
+
+// forEach
+arr.forEach((value, index) => {
+    console.log(index, value);
+});
+
+// for...of
+for (let value of arr) {
+    console.log(value);
+}
+
+// for...in (not recommended for arrays)
+for (let index in arr) {
+    console.log(index, arr[index]);
+}
+
+let obj = {x: 1, y: 2, z: 3};
+
+// for...in (typical use)
+for (let key in obj) {
+    console.log(key, obj[key]);
+}
+```
+
 ### When to use for...of loop and when to use forEach method in application?
+
+The choice between `for...of` loops and `forEach` methods often depends on the specific requirements of your task.
+
+**Use `for...of` loop when:**
+
+- You need to use `break`, `continue`, or `return` statements.
+
+```sh
+for (let item of items) {
+  if (someCondition) break;
+  // process item
+}
+```
+
+- You're working with other iterable objects besides arrays such as strings, maps, sets.
+
+```sh
+for (let char of "Hello") {
+  console.log(char);
+}
+```
+
+- You want to use `await` in the loop body.
+
+```sh
+for await (let item of asyncIterable) {
+  // process item
+}
+```
+
+- You need better performance, especially for very large arrays.
+
+- You prefer a more traditional loop syntax.
+
+**Use `forEach` loop when:**
+
+- You're working specifically with arrays and don't need to `break` the loop & `return` anything.
+
+```sh
+users.forEach(user => {
+  sendEmail(user);
+});
+```
+
+- You need easy access to both the current element and its index.
+
+```sh
+items.forEach((item, index) => {
+  console.log(`Item ${index}: ${item}`);
+});
+```
+
+- You're doing functional-style programming and want to chain methods.
+
+```sh
+users
+  .filter(user => user.active)
+  .forEach(user => sendNotification(user));
+```
+
+- You want a more concise syntax for simple operations on each element.
+
+- You're working with array-like objects (using `Array.from().forEach()`).
+
+```sh
+# Example 1
+const arrayLike = { 0: 'a', 1: 'b', 2: 'c', length: 3 };
+
+Array.from(arrayLike).forEach((item, index) => {
+    console.log(`Item at ${index}: ${item}`);
+});
+
+# Example 2
+const inputs = document.querySelectorAll('input');
+
+Array.from(inputs).forEach(input => {
+    input.addEventListener('change', handleChange);
+});
+```
 
 <!-- 5 -->
 
@@ -677,11 +954,53 @@ do {
 
 ### What is a String?
 
+A string is a sequence of characters used to represent and manipulate text. It is primitive data types and are immutable, meaning once a string is created, it cannot be changed.
+
 ### What are template literals and string interpolation in string?
 
 ### Difference between single quote(''), doible quote("") and backticks(``)?
 
 ### What are some important string operations in JS?
+
+JavaScript provides several essential string operations that you can use to manipulate and work with strings.
+
+- **`length`**: The length property returns the length of a string.
+
+- **`charAt()`**: Returns the character at the specified index.
+
+- **`at()`**: Returns the character at a specified index, supporting negative indexes as well.
+
+- **`concat()`**: Joins two or more strings and returns a new string.
+
+- **`indexOf()`**: Returns the index of the first occurrence of the specified value.
+
+- **`lastIndexOf()`**:
+
+- **`includes()`**: Checks if the string contains the specified substring.
+
+- **`slice()`**: Extracts a part of the string from `start` to `end` (end not included).
+
+- **`substring()`**: Similar to `slice`, but doesn’t allow negative indexes.
+
+- **`substr()`**: Extracts a substring starting from `start` with the specified `length`.
+
+- **`toUpperCase()`**: Converts the string to uppercase.
+
+- **`toLowerCase()`**: Converts the string to lowercase.
+
+- **`trim()`**:
+
+- **`replace()`**:
+
+- **`replaceAll()`**:
+
+- **`split()`**:
+
+- **`repeat()`**:
+
+- **`startsWith()`**:
+
+- **`endsWith()`**: Checks if the string ends with the specified substring.
 
 ### What is string immutability?
 
@@ -999,7 +1318,8 @@ do {
 
 ### What is role of event loop in JavaScript?
 
-```sh
+<!--
+
 https://www.w3schools.com/js/js_statements.asp
 
 https://javascript.info/
@@ -1016,4 +1336,4 @@ https://www.simplilearn.com/tutorials/javascript-tutorial
 
 https://www.codecademy.com/learn/introduction-to-javascript
 
-```
+ -->
