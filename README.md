@@ -1396,7 +1396,7 @@ console.log(fruits.slice()); // ['apple', 'banana', 'cherry', 'date', 'elderberr
 
 ### What is the splice() method of an Array?
 
-The `splice()` method used to **add, remove, or replace** elements in an array. Unlike the `slice()` method, `splice()` modifies the original array.
+The `splice()` method used to **add, remove, or replace** elements in an array and modifies the original array.
 
 ```sh
 array.splice(start, deleteCount, item1, item2, ..., itemN)
@@ -1422,7 +1422,7 @@ array.splice(start, deleteCount, item1, item2, ..., itemN)
 
 - Removing elements from an array.
 
-- Inserting new elements into an array.
+- Adding new elements into an array.
 
 - Replacing elements in an array.
 
@@ -1433,7 +1433,7 @@ let fruits = ['apple', 'banana', 'cherry', 'date'];
 let removed = fruits.splice(1, 2); // ['banana', 'cherry']
 console.log(fruits); // ['apple', 'date']
 
-// Inserting elements
+// Adding elements
 fruits.splice(1, 0, 'orange', 'pear'); // []
 console.log(fruits); // ['apple', 'orange', 'pear', 'date']
 
@@ -1444,15 +1444,336 @@ console.log(fruits); // ['apple', 'orange', 'grape', 'date']
 
 ### Difference between the slice() and splice() methods of an Array?
 
-### What is the difference map() and forEach() array methods of an Array?
+Both the `slice()` and `splice()` methods are used for manipulating arrays, but they have different purposes and behaviors.
 
-### How to sort and reverse an array?
+- **Purpose**: The `slice()` method used to extract a section of an array and return it as a new array, without modifying the original array but `splice()` method used to add, remove, or replace elements in an array and modifies the original array.
+
+- **Return Value**: The `slice()` method returns a new array containing the extracted elements but `splice()` method returns an array containing the deleted elements.
+
+- **Parameters**: The `slice(start, end)` takes two optional parameters, `start` and `end`, to specify the range of elements to extract but `splice(start, deleteCount)` takes at least two parameters `start` and `deleteCount` to removes elements, and optionally takes additional parameters to add or replace elements in the array.
+
+### What is the difference between map() and forEach() array methods in JS?
+
+The `map()` and `forEach()` methods are both used to iterate over arrays in JavaScript, but they have some key differences.
+
+- **Purpose**: `map()` method is used to transform the array, creating a new array with modifying the original array but `forEach()` used for iterating over the array and performs an action on each element without returning a new array.
+
+- **Return value**: `map()` method returns a new array with the results of calling a provided function on every element but `forEach()` method returns **undefined**.
+
+- **Chaining**: `map()` can be chain with other array methods like **filter()**, **reduce()** etc but `forEach()` is not chainable with other array methods.
+
+- **Performance**: `map()` is generally faster compare to `forEach()` method.
+
+```sh
+# Transfor the array & create new array
+let numbers = [1, 2, 3, 4];
+let doubled = numbers.map(num => num * 2);
+console.log(doubled); // Output: [2, 4, 6, 8]
+console.log(numbers); // Original array: [1, 2, 3, 4]
+```
+
+```sh
+# Chaining
+let numbers = [1, 2, 3, 4];
+let result = numbers.map(num => num * 2).filter(num => num > 4);
+console.log(result); // Output: [6, 8]
+```
+
+### What is forEach array method in JS?
+
+The `forEach()` method is useful when you need to perform an operation on each element but don't need to create a new array or return a value. It's simpler than a traditional `for` loop for many use cases.
+
+### What are uses of forEach array method in JS?
+
+There are a lots of uses of `forEach()` method:
+
+- Executing a function on each element
+
+```sh
+const numbers = [1, 2, 3, 4, 5];
+numbers.forEach(num => console.log(num * 2));
+```
+
+- Modifying array elements in place.
+
+```sh
+let numbers = [1, 2, 3, 4];
+numbers.forEach((number, index, arr) => {
+    arr[index] = number * 2;
+});
+console.log(numbers); // Output: [2, 4, 6, 8]
+```
+
+- Perform side effects like updating a database, sending a network request, or interacting with the DOM.
+
+```sh
+let users = ['Alice', 'Bob', 'Charlie'];
+users.forEach(user => {
+    sendWelcomeEmail(user);
+});
+
+function sendWelcomeEmail(user) {
+    console.log(`Email sent to ${user}`);
+}
+// Logs:
+// Email sent to Alice
+// Email sent to Bob
+// Email sent to Charlie
+```
+
+- Accumulate values or perform calculations without returning a new array.
+
+```sh
+let numbers = [1, 2, 3, 4];
+let sum = 0;
+numbers.forEach(number => sum += number);
+console.log(sum); // Output: 10
+```
+
+- If you have an array of objects and need to perform actions on each object.
+
+```sh
+let users = [
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 30 },
+    { name: 'Charlie', age: 35 }
+];
+
+users.forEach(user => {
+    console.log(`${user.name} is ${user.age} years old.`);
+});
+
+// Logs:
+// Alice is 25 years old.
+// Bob is 30 years old.
+// Charlie is 35 years old.
+```
+
+- If you want to reset or clear the values in an array.
+
+```sh
+let values = [1, 2, 3, 4];
+values.forEach((value, index, arr) => {
+    arr[index] = 0;
+});
+console.log(values); // Output: [0, 0, 0, 0]
+```
+
+- If you want to update or interact with multiple DOM elements.
+
+```sh
+let listItems = document.querySelectorAll('li');
+listItems.forEach(item => {
+    item.style.color = 'blue';
+});
+```
+
+### What is map array method in JS?
+
+The `map()` method is used to transform an array by applying a function to each element and creating a new array with the result. Its does not modify the original array itself.
+
+### What are uses of map array method in JS?
+
+There are several uses of `map()` method:
+
+- The most common use of `map()` is to transform each element in an array and creating a new array.
+
+```sh
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map(num => num * 2);
+console.log(doubled); // [2, 4, 6, 8]
+console.log(numbers); // [1, 2, 3, 4]
+```
+
+- You can use `map()` to extract a specific property from each object.
+
+```sh
+const users = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 35 }
+];
+
+const names = users.map(user => user.name);
+console.log(names); // ['Alice', 'Bob', 'Charlie']
+```
+
+- If you want to convert data types within an array.
+
+```sh
+const stringNumbers = ['1', '2', '3'];
+const numbers = stringNumbers.map(str => Number(str));
+console.log(numbers); // [1, 2, 3]
+```
+
+- `map()` can be chain with other array methods like **filter()**, **reduce()** methods.
+
+```sh
+const numbers = [1, 2, 3, 4, 5];
+const evens = numbers.map(num => num % 2 === 0 ? num : null).filter(Boolean);
+console.log(evens); // [2, 4]
+```
+
+### How to sort and reverse an array in JS?
+
+To sort and reverse an array, you can use the `sort()` and `reverse()` methods.
+
+#### Sorting an array:
+
+The `sort()` method sorts the elements of an array in place and returns the sorted array.
+
+```sh
+# Sorting strings alphabetically
+let fruits = ['banana', 'apple', 'cherry', 'date'];
+fruits.sort();
+console.log(fruits); // ['apple', 'banana', 'cherry', 'date']
+
+# Sorting numbers in ascending order
+let numbers = [3, 1, 4, 1, 5, 9, 2, 6];
+numbers.sort((a, b) => a - b);
+console.log(numbers); // [1, 1, 2, 3, 4, 5, 6, 9]
+
+# Sorting numbers in descending order
+numbers.sort((a, b) => b - a);
+console.log(numbers); // [9, 6, 5, 4, 3, 2, 1, 1]
+
+# Sorting an array of objects
+const users = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 20 }
+];
+
+// Sort by age in ascending order
+users.sort((a, b) => a.age - b.age);
+console.log(users);
+// [{name: 'Charlie', age: 20}, {name: 'Alice', age: 25}, {name: 'Bob', age: 30}]
+
+// Sort by age in descending order
+users.sort((a, b) => b.age - a.age);
+console.log(users);
+// [{name: 'Bob', age: 30}, {name: 'Alice', age: 25}, {name: 'Charlie', age: 20}]
+```
+
+#### Reversing an array:
+
+The `reverse()` method reverses the order of the elements in an array in place.
+
+```sh
+# Reversing an array
+let array = [1, 2, 3, 4, 5];
+array.reverse();
+console.log(array); // [5, 4, 3, 2, 1]
+
+
+# You can chain reverse() after sort()
+let words = ['zebra', 'yellow', 'apple'];
+words.sort().reverse();
+console.log(words); // ['zebra', 'yellow', 'apple']
+```
+
+> Both `sort()` and `reverse()` modify the original array. If you want to keep the original array unchanged, you can create a copy first:
+
+```sh
+let original = [3, 1, 4, 1, 5];
+let sorted = [...original].sort((a, b) => a - b);
+console.log(original); // [3, 1, 4, 1, 5]
+console.log(sorted);   // [1, 1, 3, 4, 5]
+```
 
 ### What is Array Destructuring in JS?
+
+Array destructuring is a feature in JavaScript, that allow us to extract values from an array and assign them to individual variables in a more concise and readable way.
+
+Array destructuring is introduced in ECMAScript 2015 (ES6).
+
+```sh
+const [a, b, c] = [1, 2, 3];
+console.log(a); // 1
+console.log(b); // 2
+console.log(c); // 3
+```
+
+### What are uses of Array Destructuring in JS?
+
+There are several uses of array destructuring:
+
+1. Assigning array elements to variables.
+
+```sh
+const colors = ['red', 'green', 'blue'];
+const [firstColor, secondColor, thirdColor] = colors;
+console.log(firstColor);  // 'red'
+console.log(secondColor); // 'green'
+console.log(thirdColor);  // 'blue'
+```
+
+2. Skip elements in the array by leaving an empty space between commas.
+
+```sh
+const numbers = [1, 2, 3, 4];
+const [first, , third] = numbers;
+console.log(first);  // 1
+console.log(third);  // 3
+```
+
+3. Assigning default values to variables in case the array doesn't have enough elements.
+
+```sh
+const numbers = [1];
+const [a, b = 2, c = 3] = numbers;
+console.log(a); // 1
+console.log(b); // 2 (default value)
+console.log(c); // 3 (default value)
+```
+
+4. Swapping value of variables without a temporary variable.
+
+```sh
+let x = 1;
+let y = 2;
+
+[x, y] = [y, x];
+console.log(x); // 2
+console.log(y); // 1
+```
+
+5. Use the rest operator (`...`) to assign the remaining part of the array to a variable.
+
+```sh
+const numbers = [1, 2, 3, 4, 5];
+const [first, second, ...rest] = numbers;
+console.log(first);  // 1
+console.log(second); // 2
+console.log(rest);   // [3, 4, 5]
+```
+
+6. Nested array destructuring.
+
+```sh
+const nestedArray = [1, [2, 3], 4];
+const [a, [b, c], d] = nestedArray;
+console.log(a); // 1
+console.log(b); // 2
+console.log(c); // 3
+console.log(d); // 4
+```
+
+7. Destructuring function return values.
+
+```sh
+function returnArray() {
+    return [1, 2, 3];
+}
+const [a, b, c] = returnArray();
+console.log(a, b, c); // 1 2 3
+```
 
 ### What are array-like objects in JS?
 
 ### How to convert an array-like object into an array?
+
+### What are important array operations in JS?
 
 <!-- 7 -->
 
